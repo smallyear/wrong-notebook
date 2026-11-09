@@ -86,3 +86,6 @@ __pycache__/
 # 安装包构建产物
 /dist/
 scripts/data/
+
+# 本地工作区数据（记忆、临时文件）
+.workbuddy/

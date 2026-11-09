@@ -3,6 +3,8 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { Providers } from "@/components/providers";
 import { getAppTimeZone } from "@/lib/config";
+import { isAuthDisabled } from "@/lib/auth-mode";
+import { getDefaultAdminSession } from "@/lib/default-session";
 import { THEME_INIT_SCRIPT } from "@/lib/theme";
 
 export const dynamic = 'force-dynamic';
@@ -47,11 +49,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // 免登录模式：向客户端注入默认管理员会话，前端各页面无需登录即可使用
+  const authDisabledSession = isAuthDisabled() ? await getDefaultAdminSession() : undefined;
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -63,7 +67,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         suppressHydrationWarning={true}
       >
-        <Providers timeZone={getAppTimeZone()}>
+        <Providers timeZone={getAppTimeZone()} authDisabledSession={authDisabledSession}>
           {children}
         </Providers>
       </body>

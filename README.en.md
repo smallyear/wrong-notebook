@@ -472,6 +472,7 @@ The most common variables are below; see the collapsed table and [`.env.example`
 | `<PROVIDER>_API_KEY` | The provider's API key, e.g. `MINIMAX_API_KEY`, `QWEN_API_KEY`, `OPENAI_API_KEY` |
 | `TTS_MODE` | How animation narration is voiced, `browser` (browser voice) by default |
 | `ALLOW_REGISTRATION` | Whether sign-ups are open, `false` by default |
+| `AUTH_DISABLED` | Login-free mode, `false` by default; when enabled every visitor uses the admin account automatically |
 | `AI_DAILY_LIMIT` | Daily AI actions per regular user, `0` (unlimited) by default |
 | `AI_CONCURRENCY_LIMIT` | Concurrent AI calls per model, `5` by default; further calls queue |
 
@@ -491,6 +492,7 @@ The most common variables are below; see the collapsed table and [`.env.example`
 | `HTTP_PROXY` / `HTTPS_PROXY` | Proxy | None | Proxy for requests to AI services |
 | `TELEMETRY_DISABLED` | Disable anonymous telemetry | `false` | When `true`, forces local recording, error reporting and forwarding off and makes the settings read-only; suitable for demo sites and restricted networks |
 | `ALLOW_REGISTRATION` | Allow sign-ups | `false` | When `true`, registration is open by default; the switch saved by an admin under **Settings → User Management** takes precedence |
+| `AUTH_DISABLED` | Login-free mode | `false` | When `true`, every visitor automatically uses the default admin account (`admin@localhost`) without logging in; the logout button is hidden. Only recommended for single-machine or trusted LAN deployments — keep it off for public deployments |
 | `AI_DAILY_LIMIT` | Daily AI limit per user | `0` (unlimited) | AI actions each regular user can start per day; admins are not limited. The value saved under **Settings → User Management** takes precedence |
 | `AI_CONCURRENCY_LIMIT` | AI concurrency per model | `5` | How many AI calls the same provider, address and model may run at once (1–100). Further calls wait in a queue, avoiding 429 errors from the provider. The value saved under **Settings → User Management** takes precedence |
 | `TTS_MODE` | How animation narration is voiced | `browser` | `browser` uses the browser's voice; `minimax`, `qwen`, `glm`, `stepfun`, `volcengine`, `volcengine-agent` or `openai` uses a cloud voice with that channel's API key (Doubao Speech uses `VOLCENGINE_TTS_API_KEY`; OpenAI uses the active OpenAI configuration). The value saved under **Settings → AI → Voice narration** takes precedence |

@@ -15,10 +15,9 @@
 
 import "server-only";
 
-import { getServerSession } from "next-auth";
 import type { Session } from "next-auth";
 import type { User } from "@prisma/client";
-import { authOptions } from "@/lib/auth";
+import { getAuthSession } from "@/lib/default-session";
 import { prisma } from "@/lib/prisma";
 import { createErrorResponse, ErrorCode, unauthorized, forbidden, internalError } from "@/lib/api-errors";
 import { isEulaPending } from "@/lib/eula/server";
@@ -37,7 +36,7 @@ type Handler<Context> = (req: Request, ctx: Context) => Promise<Response>;
 type AnyContext = Record<string, unknown>;
 
 async function resolveUser(): Promise<{ user: User; session: Session } | { error: Response }> {
-    const session = await getServerSession(authOptions);
+    const session = await getAuthSession();
     if (!session?.user?.email) {
         return { error: unauthorized("Authentication required") };
     }

@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
+import { getAuthSession } from "@/lib/default-session";
 import { requireAdmin } from '@/lib/auth-utils';
 import { forbidden } from '@/lib/api-errors';
 import { aiModelsBodySchema } from '@/lib/schemas/ai';
@@ -100,7 +99,7 @@ async function fetchAnthropicModels(apiKey: string, baseUrl: string): Promise<Mo
  * 用 POST 传参，避免 API Key 出现在 URL 和访问日志中。
  */
 export async function POST(req: NextRequest) {
-    const session = await getServerSession(authOptions);
+    const session = await getAuthSession();
     if (!requireAdmin(session)) {
         return forbidden('Admin access required');
     }

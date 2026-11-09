@@ -19,7 +19,7 @@ import { useSetupRedirect } from "@/lib/hooks/use-setup-redirect";
 import { cn } from "@/lib/utils";
 
 /** 全局导航外壳：桌面端顶部导航栏，移动端顶部标题栏 + 底部标签栏 */
-export function AppShell({ children }: { children: React.ReactNode }) {
+export function AppShell({ children, authDisabled = false }: { children: React.ReactNode; authDisabled?: boolean }) {
     const pathname = usePathname() || "/";
     const { t } = useLanguage();
     const { data: session, status } = useSession();
@@ -92,15 +92,18 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                         <ImportTasksIndicator className="mr-1" />
                         <ThemeToggle />
                         <SettingsDialog />
-                        <Button
-                            variant="ghost"
-                            size="icon"
-                            className="rounded-full text-muted-foreground hover:text-destructive"
-                            onClick={() => signOut({ callbackUrl: "/login" })}
-                            title={t.app.logout}
-                        >
-                            <LogOut className="h-5 w-5" />
-                        </Button>
+                        {/* 免登录模式下所有访客共用默认管理员会话，退出登录没有意义，隐藏入口 */}
+                        {!authDisabled && (
+                            <Button
+                                variant="ghost"
+                                size="icon"
+                                className="rounded-full text-muted-foreground hover:text-destructive"
+                                onClick={() => signOut({ callbackUrl: "/login" })}
+                                title={t.app.logout}
+                            >
+                                <LogOut className="h-5 w-5" />
+                            </Button>
+                        )}
                     </div>
                 </div>
             </header>

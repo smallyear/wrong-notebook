@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { authOptions } from "@/lib/auth";
-import { getServerSession } from "next-auth";
+import { getAuthSession } from "@/lib/default-session";
 import { internalError, unauthorized, forbidden } from "@/lib/api-errors";
 import {
     MATH_CURRICULUM, MATH_GRADE_ORDER,
@@ -29,7 +28,7 @@ interface TagAssociation {
 }
 
 export async function POST() {
-    const session = await getServerSession(authOptions);
+    const session = await getAuthSession();
 
     if (!session || !session.user) {
         return unauthorized();

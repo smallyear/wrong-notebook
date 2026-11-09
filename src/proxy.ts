@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
 import type { NextRequest } from "next/server";
 import { createLogger } from "@/lib/logger";
+import { isAuthDisabled } from "@/lib/auth-mode";
 
 const logger = createLogger('proxy');
 
@@ -15,6 +16,12 @@ function isPublicPath(path: string): boolean {
 export async function proxy(req: NextRequest) {
     // 页面请求的登录保护（Next.js 16 起由 middleware 更名为 proxy，运行在 Node.js 运行时）
     logger.debug({ method: req.method, path: req.nextUrl.pathname }, 'Processing request');
+
+    // 免登录模式：所有访客视为默认管理员，页面直接放行（数据归属由 API 层的会话注入保证）
+    if (isAuthDisabled()) {
+        return null;
+    }
+
     if (isPublicPath(req.nextUrl.pathname)) return NextResponse.next();
 
     try {

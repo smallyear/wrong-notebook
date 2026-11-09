@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { authOptions } from "@/lib/auth";
-import { getServerSession } from "next-auth";
+import { getAuthSession } from "@/lib/default-session";
 import { createLogger } from "@/lib/logger";
 import type { Prisma } from "@prisma/client";
 
@@ -19,7 +18,7 @@ const logger = createLogger('api:tags:suggestions');
  */
 export async function GET(req: Request) {
     try {
-        const session = await getServerSession(authOptions);
+        const session = await getAuthSession();
         const { searchParams } = new URL(req.url);
         const query = searchParams.get("q")?.toLowerCase() || "";
         const subject = searchParams.get("subject") || undefined;

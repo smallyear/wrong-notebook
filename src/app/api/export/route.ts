@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { authOptions } from "@/lib/auth";
-import { getServerSession } from "next-auth";
+import { getAuthSession } from "@/lib/default-session";
 import { unauthorized, internalError, forbidden } from "@/lib/api-errors";
 import { createLogger } from "@/lib/logger";
 import { getAppTimeZone } from "@/lib/config";
@@ -20,7 +19,7 @@ import { recordEvent } from "@/lib/telemetry/server";
 const logger = createLogger('api:export');
 
 export async function GET(req: Request) {
-    const session = await getServerSession(authOptions);
+    const session = await getAuthSession();
 
     if (!session?.user?.email) {
         return unauthorized("Not authenticated");

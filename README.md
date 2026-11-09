@@ -470,6 +470,7 @@ GeoGebra 的文字、不等式和标签参数按共用命令清单校验，重�
 | `<提供商>_API_KEY` | 对应提供商的 API Key，如 `MINIMAX_API_KEY`、`QWEN_API_KEY`、`OPENAI_API_KEY` |
 | `TTS_MODE` | 动画语音讲解的朗读方式，默认 `browser`（浏览器本地语音） |
 | `ALLOW_REGISTRATION` | 是否开放注册，默认 `false` |
+| `AUTH_DISABLED` | 免登录模式，默认 `false`，开启后所有访问者自动使用管理员账户 |
 | `AI_DAILY_LIMIT` | 普通用户每天的 AI 次数，默认 `0`（不限制） |
 | `AI_CONCURRENCY_LIMIT` | 同一模型同时进行的 AI 调用上限，默认 `5`，超出的排队 |
 
@@ -489,6 +490,7 @@ GeoGebra 的文字、不等式和标签参数按共用命令清单校验，重�
 | `HTTP_PROXY` / `HTTPS_PROXY` | 代理 | 无 | 访问 AI 服务时使用的代理 |
 | `TELEMETRY_DISABLED` | 关闭匿名遥测 | `false` | 为 `true` 时强制关闭本地记录、错误回报与外发，设置界面只读，适合演示站和内网合规场景 |
 | `ALLOW_REGISTRATION` | 允许注册 | `false` | 为 `true` 时默认开放注册；管理员在「设置 → 用户管理」中保存的开关优先 |
+| `AUTH_DISABLED` | 免登录模式 | `false` | 设为 `true` 时所有访问者自动使用默认管理员账户（`admin@localhost`），无需登录，导航中的退出登录入口会隐藏；仅建议在单机或可信内网环境开启，公网部署务必保持关闭 |
 | `AI_DAILY_LIMIT` | 每人每日 AI 次数 | `0`（不限制） | 普通用户每天可发起的 AI 操作次数，管理员不受限制；「设置 → 用户管理」中保存的值优先 |
 | `AI_CONCURRENCY_LIMIT` | 同一模型 AI 并发上限 | `5` | 同一渠道、地址和模型同时进行的 AI 调用数量（1～100），超出的调用排队等待，避免服务商返回 429；「设置 → 用户管理」中保存的值优先 |
 | `TTS_MODE` | 动画语音讲解的朗读方式 | `browser` | `browser` 为浏览器本地语音；`minimax`、`qwen`、`glm`、`stepfun`、`volcengine`、`volcengine-agent`、`openai` 为云端语音，复用对应渠道的 API Key（豆包语音使用 `VOLCENGINE_TTS_API_KEY`，OpenAI 使用当前激活的 OpenAI 配置）。「设置 → AI 设置 → 语音讲解」中保存的值优先 |

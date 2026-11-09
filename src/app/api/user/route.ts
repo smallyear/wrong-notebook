@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
+import { getAuthSession } from "@/lib/default-session";
 import { prisma } from "@/lib/prisma";
 import { withUser } from "@/lib/api-handler";
 import type { AuthenticatedContext } from "@/lib/api-handler";
@@ -40,7 +39,7 @@ const userUpdateSchema = z.object({
  * 获取当前用户资料；用户不存在时返回 404（而非包装器的 401），保持原有语义
  */
 export async function GET() {
-    const session = await getServerSession(authOptions);
+    const session = await getAuthSession();
 
     if (!session?.user?.email) {
         return unauthorized();

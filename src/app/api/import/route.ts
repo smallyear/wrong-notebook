@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { authOptions } from "@/lib/auth";
-import { getServerSession } from "next-auth";
+import { getAuthSession } from "@/lib/default-session";
 import { unauthorized, internalError, badRequest, forbidden, taskAlreadyRunning } from "@/lib/api-errors";
 import { createLogger } from "@/lib/logger";
 import { findRunningTask, reserveBackgroundTask } from "@/lib/background-tasks";
@@ -15,7 +14,7 @@ import { recordEvent } from "@/lib/telemetry/server";
 const logger = createLogger('api:import');
 
 export async function POST(req: Request) {
-    const session = await getServerSession(authOptions);
+    const session = await getAuthSession();
 
     if (!session?.user?.email) {
         return unauthorized("Not authenticated");
