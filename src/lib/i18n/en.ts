@@ -1106,6 +1106,7 @@ export const en = {
             AI_CONSENT_REQUIRED: "You have not allowed AI data sharing, so AI features are unavailable. Allow it in the prompt or under Settings → Account, then try again.",
             AI_OUTPUT_TRUNCATED: "The AI spent its whole output budget thinking and returned no answer. Please try again, or crop the image to a single question.",
             AI_IMAGE_NOT_SUPPORTED: "The current AI model does not accept images. Switch to a model with image input, or enter the questions as text.",
+            AI_NOT_A_QUESTION: "No question was recognized in this image. Upload an image that contains a question, or enter it manually.",
             SPLIT_NO_QUESTIONS: "No questions were found. Check the photo or text, try again, or draw boxes manually.",
             IMPORT_BATCH_INVALID_INPUT: "The submission is invalid. Please try again.",
             IMPORT_BATCH_INVALID_DRAFT: "The question list could not be saved. Refresh the page and try again.",
